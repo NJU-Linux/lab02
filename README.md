@@ -362,4 +362,4 @@ sudo make install
 
 3.  Android模拟器下载及使用方法见：http://developer.android.com
 
-4.  使用内核模块方式增加系统调用时，需要在fork.c中在tasklist_lock定义后利用EXPORT_SYMBOL宏将其导出，否则内核模块不能访问该锁。故使用内核模块时允许对内核进行修改。
+4.  使用内核模块方式增加系统调用时，需要在fork.c中在tasklist_lock定义后利用EXPORT_SYMBOL宏将其导出，否则内核模块不能访问该锁。本次作业对内核模块部分不作强制要求。
