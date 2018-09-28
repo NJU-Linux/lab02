@@ -1,5 +1,5 @@
 obj-m := ptree.o
-KDIR := ~/goldfish
+KDIR := ~/kernel
 
 all:
 		make -C $(KDIR) M=$(PWD) modules
