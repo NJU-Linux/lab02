@@ -89,7 +89,7 @@ Linux使用双向链表来维护所有task\_struct的列表。遍历该链表时
 使用的方法时在开始遍历之前获取此锁，在遍历完成时释放该锁。在释放锁之前，可能无法执行任何可能导致睡眠的操作，例如内存分配，从内核复制数据和复制数据到内核等。获取释放锁的具体代码如下：
 
 ``` {.c bgcolor="bg"}
-read_lock(tasklist_lock);
+read_lock(&tasklist_lock);
 ...
 ...
 read_unlock(&tasklist_lock);
@@ -228,8 +228,7 @@ static unsigned long **find_sys_call_table(void) {
     return NULL;
 }
 
-static long sys_hello(void)
-{
+static long sys_hello(void){
     printk(KERN_INFO "hello, world!\n");
     return 0;
 }
