@@ -1,4 +1,3 @@
-# lab02
 # Lab02: Android/Linux Process Tree
 
 Lab2的任务是对内核进行编程，增加一个新的系统调用ptree，并在Android 设
