@@ -84,7 +84,7 @@ ptree系统调用的返回值应为系统中所有进程的总数。注意返回
 
 2.  如果buf或nr在可访问的地址空间之外，应返回-EFAULT。
 
-**注意：**进程描述符task\_struct结构的类型定义在文件include/linux/sched.h的第1528行。
+**注意:** 进程描述符task\_struct结构的类型定义在文件include/linux/sched.h的第1528行。
 Linux使用双向链表来维护所有task\_struct的列表。遍历该链表时，需要对该链表进行加锁防止其他内核线程的并发访问。为此，内核使用一个特殊的锁，即tasklist\_lock，来确保一致性。
 使用的方法时在开始遍历之前获取此锁，在遍历完成时释放该锁。在释放锁之前，可能无法执行任何可能导致睡眠的操作，例如内存分配，从内核复制数据和复制数据到内核等。获取释放锁的具体代码如下：
 
@@ -110,8 +110,8 @@ printf("%s,%d,%ld,%d,%d,%d,%d\n", p.comm, p.pid, p.state,
       p.parent_pid, p.first_child_pid, p.next_sibling_pid, p.uid);
 ```
 
-使用ptree的方法是通过系统调用syscall，可以使用man
-syscall了解该系统调用的具体信息，下面给出了使用syscall调用的一个样例。
+使用ptree的方法是通过系统调用syscall，可以使用`man
+syscall`了解该系统调用的具体信息，下面给出了使用syscall调用的一个样例。
 
 ``` {.c bgcolor="bg"}
 #include<stdio.h>
@@ -190,7 +190,7 @@ adb shell /data/misc/exe_name
 adb pull /path/in/emulator /local/path
 ```
 
-更多可见adb help。
+更多可见`adb help`。
 
 内核模块形式添加系统调用
 ------------------------
@@ -256,7 +256,7 @@ module_init(addsyscall_init);
 module_exit(addsyscall_exit);
 ```
 
-假设内核源码位置在$\sim$/goldfish，新建Makefile内容如下。
+假设内核源码位置在`~/goldfish`，新建Makefile内容如下。
 
 ``` {.make bgcolor="bg"}
 obj-m := hello.o
@@ -269,7 +269,7 @@ clean:
     make -C $(KDIR) M=$(PWD) clean
 ```
 
-在虚拟机/物理机上使用make all命令即可进行内核模块编译，
+在虚拟机/物理机上使用`make all`命令即可进行内核模块编译，
 完成后可得到模块文件hello.ko。
 
 使用内核模块的方法非常简单，首先将模块hello.ko复制到Android模拟器中
@@ -278,7 +278,7 @@ clean:
 adb push hello.ko /data/misc
 ```
 
-然后在Android模拟器中使用insmod命令安装模块
+然后在Android模拟器中使用`insmod`命令安装模块
 
 ``` {.bash bgcolor="bg"}
 adb shell
@@ -286,8 +286,8 @@ cd /data/misc
 insmod hello.ko 
 ```
 
-此时使用dmesg命令或者在Android模拟器中看到内核输出module
-loads即说明内核模块安装成功。通过lsmod命令也可以看到系统已经安装的内核模块。
+此时使用`dmesg`命令或者在Android模拟器中看到内核输出module
+loads即说明内核模块安装成功。通过`lsmod`命令也可以看到系统已经安装的内核模块。
 
 模块使用完毕后，使用rmmod命令可以卸载模块
 
@@ -311,8 +311,8 @@ make menuconfig
 make -j2
 ```
 
-这里我们使用PC机系统当前的配置，make
-menuconfig之后会弹出图形界面选择配置，此时直接退出保存即可。
+这里我们使用PC机系统当前的配置，`make
+menuconfig`之后会弹出图形界面选择配置，此时直接退出保存即可。
 
 安装编译生成的内核步骤如下。
 
@@ -358,11 +358,5 @@ sudo make install
     中实现的系统调用。
 
 3.  Android模拟器下载及使用方法见：http://developer.android.com
-
-
-
-
-
-
 
 
