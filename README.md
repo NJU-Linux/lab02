@@ -4,7 +4,7 @@ Lab2的任务是对内核进行编程，增加一个新的系统调用ptree，�
 备模拟器和Linux虚拟机上使用该系统调用打印出指定的进程树信息。Lab2要求尝试Android和Linux平台并熟悉其开发环境。Android和Linux平台可以在许多不同的架构上运行，但我们将针对的特定平台是X86\_64
 CPU系列。
 
-我们在提供的虚拟机中预先安装好了一个基于QEMU系统的Android模拟器。相应的Android SDK文件也已预先安装在虚拟机中。由于我们使用的是X86\_64系列CPU，与通常PC中运行的CPU相同，所有的内核编译都可以在提供的Linux虚拟机中完成。虚拟机下载地址是：<http://210.28.133.11:21318/Linux2018.ova>，用户名密码分别是nju和空格。我们使用的内核版本是用于Android系统的android-goldfish-4.4-dev，可以在课程主页上下载<http://cs.nju.edu.cn/zhangl/linux/goldfish.gz>。Android是基于Linux内核的，只是在Linux主分支中添加了一些额外的附加功能，用上述Android的内核源码编译生成的内核同样适用Linux虚拟机或物理机（比如乙126的机器）。
+我们在提供的虚拟机中预先安装好了一个基于QEMU系统的Android模拟器。相应的Android SDK文件也已预先安装在虚拟机中。由于我们使用的是X86\_64系列CPU，与通常PC中运行的CPU相同，所有的内核编译都可以在提供的Linux虚拟机中完成。虚拟机下载地址是：<http://210.28.133.11:21318/Linux2018.ova>，用户名密码分别是nju和空格。我们使用的内核版本是用于Android系统的android-goldfish-4.4-dev，可以在课程主页上下载<http://cs.nju.edu.cn/zhangl/linux/goldfish.gz>。Android是基于Linux内核的，只是在Linux主分支中添加了一些额外的附加功能，用上述Android的内核源码编译生成的内核同样适用Linux虚拟机或物理机（比如乙124的机器）。
 
 实验要求
 ========
@@ -362,4 +362,4 @@ sudo make install
 
 3.  Android模拟器下载及使用方法见：http://developer.android.com
 
-
+4.  使用内核模块方式增加系统调用时，需要在fork.c中在tasklist_lock定义后利用EXPORT_SYMBOL宏将其导出，否则内核模块不能访问该锁。故使用内核模块时允许对内核进行修改。
