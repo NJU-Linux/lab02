@@ -35,12 +35,12 @@ AVD。AVD最多可能需要5分钟才能启动。如果AVD无法启动或卡在�
 arch/x86/configs目录中提供了默认的内核配置，为模拟器生成内核比较简单：
 
 ``` {.bash bgcolor="bg"}
-cd goldfish
+cd kernel
 make x86_64_ranchu_defconfig
 make -j2
 ```
 
-可以尝试使用-jN替换-j2，其中N是计算机上CPU数量的两倍。
+可以尝试使用-jN替换-j2，其中N是你的虚拟机上CPU数量的两倍。
 
 最终编译生成的内核映像默认输出位置为：arch/x86/boot/bzImage。这个文件既可以用于引导Android模拟器。使用emulator命令使用自定义内核启动模拟器命令如下：
 
@@ -255,11 +255,11 @@ module_init(addsyscall_init);
 module_exit(addsyscall_exit);
 ```
 
-假设内核源码位置在`~/goldfish`，新建Makefile内容如下。
+假设内核源码位置在`~/kernel`，新建Makefile内容如下。
 
 ``` {.make bgcolor="bg"}
 obj-m := hello.o
-KDIR := ~/goldfish
+KDIR := ~/kernel
 
 all:
     make -C $(KDIR) M=$(PWD) modules
@@ -300,11 +300,15 @@ Linux虚拟机上添加系统调用
 由于Android
 goldfish同样适用于Linux虚拟机和物理机，我们同样可以在PC机上测试ptree系统调用。
 
-PC机上大部分步骤都是一样的，只有编译内核和安装内核稍有区别。
-编译内核的步骤如下，
+你的库首先转到vm分支，然后将master分支所做的改动工作merge到vm分支中：
+```{.bash bgcolor="bg"}
+git checkout vm
+git merge master
+```
+然后进行编译内核和安装内核，编译内核的步骤如下，
 
 ``` {.bash bgcolor="bg"}
-cd goldfish
+cd kernel
 cp /boot/config-`uname -r`* .config
 make menuconfig
 make -j2
@@ -320,7 +324,7 @@ sudo make modules_install
 sudo make install
 ```
 
-安装完成后重启，即可在Grub启动界面选择从新内核启动。此时可以运行你的测试程序。
+安装完成后重启，即可在Grub启动界面选择从新内核启动。此时可以在新的内核上运行你的测试程序。
 
 讨论
 ====
