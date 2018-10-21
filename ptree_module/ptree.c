@@ -3,7 +3,7 @@
 #include <linux/syscalls.h>
 
 MODULE_LICENSE("GPL");
-#define __NR_hello 326
+#define __NR_hello 325
 
 static int (*oldcall)(void);
 
